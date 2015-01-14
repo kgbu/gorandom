@@ -1,4 +1,4 @@
 test:
-override:
-- go build
-- go test tests/ini_test.go
+  override:
+    - go build
+    - go test tests/ini_test.go
