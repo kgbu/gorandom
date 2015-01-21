@@ -1,4 +1,14 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker build shiguredo/mosquitto
+
 test:
   override:
+    - docker run -p 1883:1883  shiguredo/mosquitto ; sleep 30
     - go build
     - go test tests/ini_test.go

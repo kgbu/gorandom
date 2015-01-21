@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/kgbu/gorandom"
 	"testing"
+
+	"github.com/kgbu/gorandom"
 )
 
 func Test001(t *testing.T) {
