@@ -5,7 +5,7 @@ machine:
 dependencies:
   override:
     - docker info
-    - docker build shiguredo/mosquitto
+    - docker build -t shiguredo/mosquitto .
 
 test:
   override:
