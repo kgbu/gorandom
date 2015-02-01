@@ -6,6 +6,8 @@ dependencies:
   override:
     - go get -t -d -v ./..
     - go get -u github.com/kr/godep
+    - go get -u github.com/tarm/goserial
+    - go build -v
 
 test:
   override:
