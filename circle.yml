@@ -4,7 +4,7 @@ machine:
 
 test:
   override:
-    - docker run -p 1883:1883  shiguredo/mosquitto ; sleep 30
+    - docker run -d -p 1883:1883  shiguredo/mosquitto ; sleep 30
     - godep save
     - godep go build
     - godep go test tests/ini_test.go
