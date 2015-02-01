@@ -1,0 +1,10 @@
+{
+	"ImportPath": "github.com/kgbu/gorandom",
+	"GoVersion": "go1.4.1",
+	"Deps": [
+		{
+			"ImportPath": "github.com/tarm/goserial",
+			"Rev": "14022755244247dd5178ae0bc40b2b129ac3fd08"
+		}
+	]
+}
