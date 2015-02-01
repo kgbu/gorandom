@@ -6,10 +6,10 @@ dependencies:
   override:
     - go get -t -d -v ./..
     - go get -u github.com/kr/godep
-    - godep save
-    - godep go build
 
 test:
   override:
     - docker run -d -p 1883:1883  shiguredo/mosquitto ; sleep 30
+    - godep save
+    - godep go build
     - godep go test tests/ini_test.go
