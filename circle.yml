@@ -6,12 +6,12 @@ dependencies:
   override:
     - go get -t -d -v ./..
     - go get -u github.com/kr/godep
-    - go get -u https://github.com/tarm/goserial
     - go build -v
 
 test:
   override:
     - docker run -d -p 1883:1883  shiguredo/mosquitto ; sleep 30
+    - go get -u github.com/tarm/goserial
     - godep save
     - godep go build
     - godep go test tests/ini_test.go
