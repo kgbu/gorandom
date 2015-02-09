@@ -3,15 +3,25 @@ machine:
     - docker
 
 dependencies:
-  override:
-    - go get -t -d -v ./..
-    - go get -u github.com/kr/godep
-    - go build -v
+  pre:
+    - gem install package_cloud
+    - go get github.com/mitchellh/gox
+    - gox -build-toolchain
 
 test:
   override:
     - docker run -d -p 1883:1883  shiguredo/mosquitto ; sleep 30
-    - go get -u github.com/tarm/goserial
-    - godep save
-    - godep go build
-    - godep go test tests/ini_test.go
+    - go build -v
+    - go test -coverpkg github.com/kgbu/gorandom ./tests/*_test.go
+
+
+deployment:
+  production:
+    branch master
+    commands:
+      - if [ -f ./packages ] ; then  rm -rf ./packages ; fi
+      - mkdir -p ./packages/usr/local/gorandom/{bin,etc}
+      - gox -os="linux" -arch="arm" "github.com/kgbu/gorandom/cmd/gorandom"
+      - cp gorandom_linux_arm ./packages/usr/local/gorandom/bin/gorandom
+      - cd packages; $(FPM) -s dir -t deb -a armhf -n fuji-gw -v `cat ./tag` .
+      - package_clound push kgbu/gorandom/linux/0.0.`cat ./tag` ./packages/gorandom_`cat ./tag`_armhf.deb
