@@ -17,7 +17,7 @@ test:
 
 deployment:
   production:
-    branch master
+    branch: master
     commands:
       - if [ -f ./packages ] ; then  rm -rf ./packages ; fi
       - mkdir -p ./packages/usr/local/gorandom/{bin,etc}
