@@ -5,13 +5,11 @@ machine:
 dependencies:
   pre:
     - gem install package_cloud
-    - go get github.com/mitchellh/gox
-    - sudo /home/ubuntu/.go_workspace/bin/gox -build-toolchain
 
 test:
   override:
-    - docker run -d -p 1883:1883  shiguredo/mosquitto ; sleep 30
     - go build -v
+    - docker run --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp -e GOOS=linux -e GOARCH=arm golang:1.4.1-cross go build -v
     - go test -coverpkg github.com/kgbu/gorandom ./tests/*_test.go
 
 
