@@ -10,7 +10,8 @@ dependencies:
 test:
   override:
     - go build -v
-    - docker run --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp -e GOOS=linux -e GOARCH=arm golang:1.4.1-cross go build -v
+    - docker run --rm go get github.com/tarm/goserial
+    - docker run -v "$PWD":/usr/src/myapp -w /usr/src/myapp -e GOOS=linux -e GOARCH=arm golang:1.4.1-cross go build -v
     - go test -coverpkg github.com/kgbu/gorandom ./tests/*_test.go
 
 
