@@ -6,7 +6,7 @@ dependencies:
   pre:
     - gem install package_cloud
     - go get github.com/mitchellh/gox
-    - gox -build-toolchain
+    - sudo gox -build-toolchain
 
 test:
   override:
