@@ -21,7 +21,8 @@ deployment:
     commands:
       - if [ -f ./packages ] ; then  rm -rf ./packages ; fi
       - mkdir -p ./packages/usr/local/gorandom/{bin,etc}
+      - GOARM=5 gox -build-toolchain
       - gox -os="linux" -arch="arm" "github.com/kgbu/gorandom/cmd/gorandom"
       - cp gorandom_linux_arm ./packages/usr/local/gorandom/bin/gorandom
       - cd packages; $(FPM) -s dir -t deb -a armhf -n fuji-gw -v `cat ./tag` .
-      - package_clound push kgbu/gorandom/linux/0.0.`cat ./tag` ./packages/gorandom_`cat ./tag`_armhf.deb
+      - package_clound push kgbu/gorandom/linux/0.0.`cat ./tag` ./packages/gorandom_`cat ./tag`_armlt.deb
