@@ -1,10 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"bufio"
+	"fmt"
 	"os"
 	"os/exec"
+	"regexp"
 )
 
 func main() {
@@ -19,8 +20,11 @@ func main() {
 
 	scanner := bufio.NewScanner(serr)
 	for scanner.Scan() {
-		fmt.Println(scanner.Text())
-		fmt.Println()
+		re := regexp.MustCompile("([/]dev[/]ttys[0-9]{3})")
+		line := []byte(scanner.Text())
+		if re.Match(line) {
+			fmt.Println(string(re.Find(line)))
+		}
 	}	
 
 	cmd.Wait()
