@@ -1,4 +1,6 @@
 machine:
+  environment:
+    GOVERSION: "1.5.3"
   services:
     - docker
 
@@ -9,6 +11,7 @@ dependencies:
 
 test:
   override:
+    - go version
     - go build -v
     - docker run --rm golang:1.4.1-cross go get github.com/tarm/goserial
     - docker run -v "$PWD":/usr/src/myapp -w /usr/src/myapp -e GOOS=linux -e GOARCH=arm golang:1.4.1-cross go build -v
