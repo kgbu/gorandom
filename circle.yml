@@ -1,17 +1,24 @@
 machine:
   environment:
+    GOPATH: "/home/ubuntu/.go_workspace"
+    PATH: "/home/ubuntu/go/bin:${PATH}:${GOPATH}/bin"
     GOVERSION: "1.5.3"
   services:
     - docker
 
 dependencies:
+  cache_directories:
+    - "/home/ubuntu/go"
   pre:
     - gem install package_cloud
     - go get github.com/tarm/goserial
+  override:
+    - if [[ ! -e /home/ubuntu/go/bin/go ]]; then cd /home/ubuntu; curl https://storage.googleapis.com/golang/go${GOVERSION}.linux-amd64.tar.gz | tar -xz; fi
 
 test:
   override:
     - go version
+    - which go
     - go build -v
     - docker run --rm golang:1.4.1-cross go get github.com/tarm/goserial
     - docker run -v "$PWD":/usr/src/myapp -w /usr/src/myapp -e GOOS=linux -e GOARCH=arm golang:1.4.1-cross go build -v
