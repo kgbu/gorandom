@@ -1,3 +1,5 @@
+// 2016 ocao
+
 package gorandom
 
 import (
